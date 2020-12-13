@@ -1,19 +1,12 @@
 <template>
   <div id="app">
     <img src="./assets/carrito.png" width="480" height="425" alt="">
-    <Inicio/>
+    <h1>Bienvenido a su Tienda Virtual</h1>
   </div>
 </template>
 
 <script>
-import Inicio from './components/Inicio'
 
-export default {
-  name: 'App',
-  components: {
-    Inicio
-  }
-}
 </script>
 
 <style>
