@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <img src="./assets/carrito.png" width="480" height="425" alt="">
+   <!--  <img src="./assets/carrito.png" width="480" height="425" alt=""> -->
     <h1>Bienvenido a su Tienda Virtual</h1>
      <router-view></router-view> 
     <Footer/>
