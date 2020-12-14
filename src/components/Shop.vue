@@ -41,13 +41,15 @@
             
              </div>
           </section>
-      </div>    
+      </div>        
   </div>
+
 </template>
 
 <script>
 //import axios from 'axios';
 import Card from './card_product.vue';
+
 
 export default {
   name: 'Shop',
