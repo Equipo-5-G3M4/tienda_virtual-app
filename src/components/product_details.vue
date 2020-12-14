@@ -1,68 +1,46 @@
 <template>
-  <div id="shop">
+  <div id="product">
       <div class="wrapper">
-          <section class="card-products">
-            <div class="grid">
-                <div v-for="(product, index) in products" v-bind:key="index">
-                  <Card :producto="product"/>
-                </div> 
-                <!-- 
-                <div v-for="(product, index) in products" v-bind:key="index">
-                  <Card :producto="product"/>
-                </div>  
-                <div v-for="(product, index) in products" v-bind:key="index">
-                  <Card :producto="product"/>
-                </div>  
-                <div v-for="(product, index) in products" v-bind:key="index">
-                  <Card :producto="product"/>
-                </div>  
-                <div v-for="(product, index) in products" v-bind:key="index">
-                  <Card :producto="product"/>
-                </div>  
-                <div v-for="(product, index) in products" v-bind:key="index">
-                  <Card :producto="product"/>
-                </div>  
-                <div v-for="(product, index) in products" v-bind:key="index">
-                  <Card :producto="product"/>
-                </div>  
-                <div v-for="(product, index) in products" v-bind:key="index">
-                  <Card :producto="product"/>
-                </div>  
-                <div v-for="(product, index) in products" v-bind:key="index">
-                  <Card :producto="product"/>
-                </div>  
-                <div v-for="(product, index) in products" v-bind:key="index">
-                  <Card :producto="product"/>
-                </div>  
-                <div v-for="(product, index) in products" v-bind:key="index">
-                  <Card :producto="product"/>
-                </div>   -->
-                          
-            
-             </div>
+          <section class="back-action">
+                <button v-on:click="back()">Atras</button>
           </section>
-      </div>    
-  </div>
+          <section class="product-details">
+              <article  class="product-details__product">
+                    <div class="product-details__product--picture">
+                        <img v-bind:src="producto.imagen" alt="">
+                    </div>
+                    <div class="product__description">
+                      <p class="product__description--title">{{producto.productoname}} </p>
+                      <p class="product__description--price">  Precio:  <span>${{producto.precio}}</span></p>
+                      <p class="product__description--category">Categoria: <span> {{producto.categoria}}</span></p>
+                      <p class="product__description--description">Descripcion: <span>{{producto.descripcion}}</span></p>
+                    </div>
+
+                </article>
+
+          </section>
+      </div>
+    </div>
 </template>
 
 <script>
-//import axios from 'axios';
-import Card from './card_product.vue';
 
 export default {
-  name: 'Shop',
-  data: function (){
-          return {
-              products : [
-              ]
-          }
-      },
-  components: {
-      Card
+  name: 'Product',
+  methods: {
+    back: function (productoName) {
+     this.$router.push({name: "root"})
+    }
+  },
+  data: function(){
+    return{
+      producto
+    }
   },
   created: function() {
-    // TO DO -> cambiar prueba falsa por peticion axios a la api buscando todos los productos
-          let pruebaFalsa = {
+    let productoTitulo = this.$route.params.producto
+    // TO DO -> cambiar prueba falsa por peticion axios a la api buscando un producto en especifico
+    let pruebaFalsa = {
             "rueda abdominal": {
                 "productoname": "rueda abdominal",
                 "precio": 29900,
@@ -80,26 +58,13 @@ export default {
                 "categoria": "juguetes"
             }
           }
-            console.log(pruebaFalsa)
-            var keys = Object.keys(pruebaFalsa);
-            this.products = keys.map(function(v) { return pruebaFalsa[v]; });
-            console.log("arreglo",this.products)
-
-          //let self = this
-         /*  axios.get("https://tienda-virtual12.herokuapp.com/productos")
-              .then((result) => {
-                  self.balance = result.data.balance
-                  console.log(self.balance)
-              })
-              .catch((error) => {
-                  alert("ERROR Servidor", error);
-              }); */
-      },
-     
-
-    
-      
-      
+    var keys = Object.keys(pruebaFalsa);
+    let products = keys.map(function(v) { return pruebaFalsa[v]; });
+    this.producto = products.filter(prod => prod.productoname === productoTitulo)[0]
+    console.log("prod",this.producto)
+  },
+  components: {
+  }
 }
 </script>
 
@@ -107,53 +72,96 @@ export default {
 .wrapper {
   padding: 0 30px;
 }
-.grid {
-  display: grid;
-  row-gap: 30px;
+.back-action{
+    display: flex;
+    justify-content: flex-start;
+    padding: 10px 0;
 }
-.card-products{
-  padding: 3em 0;
-  
-  
+.back-action button {
+    padding: .8em 1em;
+    cursor: pointer;
+    outline: none;
+    color: white;
+    background-color: black;
+    border: 1px solid black;
+    border-radius: 8px;
+    font-weight: bold;
+    box-sizing: border-box;
 }
-
+.back-action button:hover{
+    color: black;
+    background-color: white;
+    
+}
+.product__description span {
+    padding: .3em 0;
+    display: block;
+}
+.product__description p {
+    font-weight: bold;
+}
+.product__description--title{
+    font-size: 1.5em;
+}
+.product__description--price span,
+.product__description--category span,
+.product__description--description span{
+    font-weight: 400;
+}
+.product__description--description span{
+    text-align: justify;
+}
 
 @media screen and (min-width: 480px) {
-  .grid {
-    grid-template-columns: 1fr 1fr;
-    column-gap: 25px;
-  }
+  
   .wrapper {
     max-width: 1440px;
     margin: auto;
   }
 }
 @media screen and (min-width: 768px) {
-  .grid {
-    grid-template-columns: 1fr 1fr 1fr;
-    column-gap: 25px;
-  }
+  
   .wrapper {
     max-width: 1440px;
     margin: auto;
   }
-}
-@media screen and (min-width: 1024px) {
-  .grid {
-    grid-template-columns: 1fr 1fr 1fr 1fr;
-    column-gap: 30px;
+  .product-details__product{
+    display: flex;
   }
-  .wrapper {
-    max-width: 1440px;
-    margin: auto;
+  .product-details__product--picture img{
+    width: 350px;
+    height: 350px;
   }
-  .card-products{
-  max-height: 820px;
-  overflow: scroll;
+  .product__description{
+      margin: 0 auto;
+      width: 600px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      align-items: center;
+  }
   
 }
-.card-products::-webkit-scrollbar {
-  display: none;
-}
+@media screen and (min-width: 1024px) {
+  
+  .wrapper {
+    max-width: 1440px;
+    margin: auto;
+  }
+  .product-details__product{
+    display: flex;
+  }
+  .product-details__product--picture img{
+    width: 500px;
+    height: 500px;
+  }
+  .product__description{
+      margin: 0 auto;
+      width: 600px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      align-items: center;
+  }
 }
 </style>
