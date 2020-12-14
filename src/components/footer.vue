@@ -1,17 +1,16 @@
 <template>
-  <div id="footer">
+  <div id="footer">    
       <footer>
           <h1>Footer</h1>
-      </footer>
-    
+      </footer>    
   </div>
 </template>
 
 <script>
-
 export default {
   name: 'Footer',
   components: {
+    
   }
 }
 </script>
@@ -19,7 +18,7 @@ export default {
 <style>
 footer {
     width: 100%;
-    border: 1px solid red;
+    height: 500px;
+       
 }
-
 </style>
