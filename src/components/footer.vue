@@ -1,7 +1,7 @@
 <template>
   <div id="footer">    
       <footer>
-          <h1>Footer</h1>
+          
       </footer>    
   </div>
 </template>
@@ -16,9 +16,7 @@ export default {
 </script>
 
 <style>
-footer {
-    width: 100%;
-    height: 500px;
-       
+#footer {
+    width: 100%;       
 }
 </style>

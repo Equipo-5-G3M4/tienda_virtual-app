@@ -86,7 +86,7 @@ export default{
   font-size: 25px;
 }
 footer{
-  width: 100vw;  
+  width: 100%;  
 }
 .container-footer{
   background-color:black;
@@ -96,7 +96,7 @@ footer{
   justify-content: center;
 }
 .row{
-  margin: 10px 15px;  
+  margin: 10px 15px;
 }
 .container-mid-footer{
   color: white;
