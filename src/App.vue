@@ -2,7 +2,22 @@
   <div id="app">
 <!-------HEADER--------------------->
     <header>
-
+      <div id = 'Header'>
+        <header>
+          <div id="search-bar">
+            <div id="logo"></div>
+            <input type="text" placeholder="Buscar..">
+          </div> 
+        </header>
+        <nav>
+          <ul>
+            <li><a>Productos</a></li>
+            <li><a>Ofertas</a></li>
+            <li><a>Quienes somos</a></li>
+            <li><a>Administrar</a></li>
+          </ul>
+        </nav>
+      </div>
     </header>
 <!-------HEADER--------------------->
 <!-------BODY--------------------->
@@ -82,7 +97,6 @@ export default{
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  margin-top: 60px;
   font-size: 25px;
 }
 footer{
@@ -134,4 +148,65 @@ h2{
       margin:20px 0px 20px ;
     }
   }
+#Header {
+  width: 100%;
+  margin-bottom: 60px;
+}
+#Header header {
+  height: 126px;
+  background-color: #C4C4C4;
+}
+#Header nav {
+  height: 92px;
+  color: #FFFFFF;
+  padding: 30px 0;
+  background-color: #3F3F3F;
+}
+#Header nav ul {
+  display: flex;
+  justify-content: space-around;
+  font-size: 24px;
+  font-weight: 600;
+  font-style: normal;
+}
+#Header nav ul li {
+  display: inline-block;
+}
+#Header nav ul li:hover {
+  border-bottom-style: solid;
+  border-bottom-color: #00F87C;
+  border-bottom-width: 5px;
+}
+
+#Header nav ul li a:hover {
+  color: #00F87C;
+  line-height: 36px;
+}
+
+#search-bar {
+  position: relative;
+  overflow: hidden;
+}
+
+#logo {
+  display: inline-block;
+  margin: 17px 0 17px 50px;
+  width: 127px;
+  height: 92px;
+  background-color: #DFDFDF;
+  float: left;
+}
+
+#search-bar input[type=text] {
+  float: right;
+  padding: 6px;
+  border-radius: 1em;
+  border: 2px solid black;
+  margin-top: 39.5px;
+  margin-right: 146px;
+  font-size: 17px;
+}
+#search-bar input:focus{
+  outline: none;
+}
 </style>
