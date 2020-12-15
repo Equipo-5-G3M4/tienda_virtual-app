@@ -6,8 +6,7 @@
     </header>
 <!-------HEADER--------------------->
 <!-------BODY--------------------->
-    <h1>Bienvenido a su Tienda </h1>
-    <router-view></router-view>
+      <router-view></router-view>
 <!-------BODY--------------------->
 <!-------FOOTER--------------------->
     <footer>
