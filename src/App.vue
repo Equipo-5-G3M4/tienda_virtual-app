@@ -58,6 +58,9 @@
         </div>        
       </div>
       <div class="container-mid-footer">
+        <div class="link">
+          <router-link to="/administrador">Administrador</router-link>
+        </div>
         <div class="siguenos">
           <h2>SIGUENOS EN NUESTRAS REDES SOCIALES</h2>
           <div id="redes">
@@ -65,7 +68,7 @@
             <div><img src="./assets/twitter.png" width="40" height="40" alt=""></div>
             <div><img src="./assets/instagram.png" width="40" height="40" alt=""></div>
           </div>
-        </div>
+        </div>        
       </div>
       <div class="container-bottom-footer">
         <div class="copyright">
@@ -86,6 +89,10 @@ export default{
 </script>
 
 <style>
+.link{
+  align-content: center;
+  margin: 10px 160px;
+}
 *{
   margin: 0;
   padding: 0;
@@ -149,7 +156,7 @@ h2{
   }
 #Header {
   width: 100%;
-  margin-bottom: 60px;
+  margin-bottom: 0px;
 }
 #Header header {
   height: 126px;
