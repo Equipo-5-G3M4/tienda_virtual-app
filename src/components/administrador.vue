@@ -30,9 +30,19 @@
       </div>
       <div class="column-b">
         <div class="productos" v-for="(producto, index) in productos" v-bind:key="index">
-          <h2>El precio es: <span> {{producto.patineta.precio}} COP </span></h2>
-          <h2>El precio es: <span> {{producto.patineta}} COP </span></h2>
-          <div><img src="" width="40" height="40" alt=""></div>
+          
+            <article  class="product-details">
+              <div class="product-picture">
+                <img v-bind:src="producto.patineta.imagen" width="500" height="300" alt="">
+              </div>
+              <div class="product__description">
+                <p class="title">{{producto.patineta.productoname}} </p>
+                <p class="price">  Precio:  <span>{{producto.patineta.precio}}</span></p>
+                <p class="category">Categoria: <span> {{producto.patineta.categoria}}</span></p>
+                <p class="description">Descripcion: {{producto.patineta.descripcion}}</p>
+              </div>
+            </article>
+          
         </div>
       </div>
     </div>
@@ -45,7 +55,7 @@ export default {
   name: "getproducto",
   data: function () {
     return {
-      productos: []            
+      productos: [],     
     };
   },
   created: function () {
@@ -55,7 +65,7 @@ export default {
         .catch((error) => {
             alert("ERROR Servidor");
       });
-  },
+  },  
 };
 </script>
 
@@ -99,4 +109,5 @@ label {
   background-color: rgba(233, 150, 122, 0.199);
   width: 60%;
 }
+
 </style>
