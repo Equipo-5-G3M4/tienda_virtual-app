@@ -76,8 +76,6 @@
         <div class="copyright">
           Copyright 2020. e-commerce inc. Todos los derechos reservados.
         </div>
-
-
       </div>
     </footer>
 <!-------FOOTER--------------------->
@@ -253,5 +251,4 @@ h2{
 #home a svg:hover {
   fill: #00F87C;
 }
-
 </style>
