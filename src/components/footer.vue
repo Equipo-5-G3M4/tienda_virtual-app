@@ -1,8 +1,8 @@
 <template>
-  <div id="footer">    
+  <div id="footer">
       <footer>
-          
-      </footer>    
+
+      </footer>
   </div>
 </template>
 
@@ -10,13 +10,13 @@
 export default {
   name: 'Footer',
   components: {
-    
+
   }
 }
 </script>
 
 <style>
 #footer {
-    width: 100%;       
+    width: 100%;
 }
 </style>
