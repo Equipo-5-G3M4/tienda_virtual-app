@@ -42,15 +42,12 @@ export default {
   components: {
   
   },
-  beforeCreate: function() {
-    axios.get("http://127.0.0.1:8000/productos/" + this.$route.params.producto)
-    .then(result => {
-      console.log(result.data)
-      this.producto = result.data
-    })
-    .catch(error => {
-      console.log(error);
-      alert("error en el servidor", error);
+  Create: function() {
+    let self = this;
+    axios.get("http://localhost:8000/productos/" + self.$route.params.producto)
+          .then(result => {self.producto = result.data})
+          .catch(error => {      
+              alert("error en el servidor", error);
     })
   }
 }

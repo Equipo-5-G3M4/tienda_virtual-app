@@ -27,15 +27,12 @@ export default {
               products : []
           }
   },
-  beforeCreate: function() {
-    axios.get("http://127.0.0.1:8000/productos")
-    .then(result => {
-      console.log(result.data)
-      this.products = result.data
-    })
-    .catch(error => {
-      console.log(error);
-      alert("error en el servidor", error);
+  Create: function() {
+    let self = this;
+    axios.get("http://localhost:8000/productos")
+        .then(result => {self.products = result.data})
+        .catch(error => {
+            alert("error en el servidor", error);
     })
   }   
 }

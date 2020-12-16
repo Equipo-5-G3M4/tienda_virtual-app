@@ -23,7 +23,7 @@
         </form>
       </div>
       <div class="column-b">
-        <div class="productos" v-for="(producto, index) in productos" v-bind:key="index">          
+        <div class="productos" v-for="(producto, index) in productos" v-bind:key="index">
             <article  class="product-details">
               <div class="product-picture">
                 <img v-bind:src="producto.patineta.imagen" width="400" height="250" alt="">
