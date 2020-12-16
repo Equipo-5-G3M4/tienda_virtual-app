@@ -30,7 +30,7 @@ export default {
   Create: function() {
     let self = this;
     axios.get("http://localhost:8000/productos")
-        .then(result => {self.products = result.data})
+        .then(result => {self.products = result.data})      
         .catch(error => {
             alert("error en el servidor", error);
     })
