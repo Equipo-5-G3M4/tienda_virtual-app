@@ -1,18 +1,16 @@
 <template>
   <div id="card-product">
 
-    <article v-on:click="di(producto.productoname)" class="card">
+    <article v-on:click="di()" class="card">
       <div class="card__picture">
-          <img v-bind:src="producto.imagen" alt="">
+          <img :src='image' alt="">
       </div>
       <div class="card__description">
-        <p class="card__description--title">{{producto.productoname}} </p>
-        <p class="card__description--price">Precio: {{producto.precio}}</p>
-        <p class="card__description--category">{{producto.categoria}}</p>
+        <p class="card__description--title">{{name}} </p>
+        <p class="card__description--price">Precio: {{value}}</p>
+        <p class="card__description--category">{{category}}</p>
       </div>
-
     </article>
-    
   </div>
 </template>
 
@@ -20,17 +18,13 @@
 
 export default {
   name: 'Card',
-  
   methods: {
-    di: function (productoName) {
-     this.$router.push({name: "productoDetails", params:{ producto: productoName }})
+    di: function() {
+     this.$router.push({name: "productoDetails", params:{producto: this.name}})
     }
   },
-  props: {
-  	producto: {
-    	type: Object
-    }
-  },
+  props: ['name', 'value', 'category', 'image']
+  ,
   
   components: {
   }
