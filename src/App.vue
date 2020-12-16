@@ -5,8 +5,8 @@
       <div id = 'Header'>
         <header>
           <div id="search-bar">
-            <div id="logo"></div>
-            <input type="text" placeholder="Buscar..">
+            <div id="logo"><img src="./assets/carrito.png" alt=""></div>
+            <input class="buscar" type="text" placeholder="Buscar..">
           </div> 
         </header>
         <nav>
@@ -194,13 +194,12 @@ h2{
   overflow: hidden;
 }
 
-#logo {
+#logo img{
   display: inline-block;
   margin: 17px 0 17px 50px;
   width: 127px;
   height: 92px;
-  background-color: #DFDFDF;
-  float: left;
+  float: left;  
 }
 
 #search-bar input[type=text] {

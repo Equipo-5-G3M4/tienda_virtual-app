@@ -10,39 +10,44 @@
           <input type="text" id="titulo" name="titulo" /><br />
 
           <label for="cantidad">Cantidad:</label><br />
-          <input type="text" id="cantidad" name="cantidad" /><br />
+          <input type="number" id="cantidad" name="cantidad" /><br />
 
           <label for="precio">Precio:</label><br />
           <input type="text" id="precio" name="precio" /><br />
 
           <label for="descripcion">Descripción:</label><br />
-          <textarea
-            name="descripcion"
-            id="descripcion"
-            cols="30"
-            rows="10"
-          ></textarea
-          ><br />
+          <textarea name="descripcion" id="descripcion" cols="30" rows="10" ></textarea><br />
 
           <label for="imagen">Imagen:</label><br />
           <input type="text" id="imagen" name="imagen" /><br />
         </form>
       </div>
       <div class="column-b">
-        <div class="productos" v-for="(producto, index) in productos" v-bind:key="index">
-          
+        <div class="productos" v-for="(producto, index) in productos" v-bind:key="index">          
             <article  class="product-details">
               <div class="product-picture">
-                <img v-bind:src="producto.patineta.imagen" width="500" height="300" alt="">
+                <img v-bind:src="producto.patineta.imagen" width="400" height="250" alt="">
               </div>
-              <div class="product__description">
-                <p class="title">{{producto.patineta.productoname}} </p>
+              <div class="product-description">
+                <h2 class="title">{{producto.patineta.productoname}} </h2>                
+                <h2 class="vary"></h2>
                 <p class="price">  Precio:  <span>{{producto.patineta.precio}}</span></p>
+                <p class="price">  Cantidad:  <span>{{producto.patineta.existencia}}</span></p>
                 <p class="category">Categoria: <span> {{producto.patineta.categoria}}</span></p>
-                <p class="description">Descripcion: {{producto.patineta.descripcion}}</p>
+                <p class="description">Descripcion: <span>{{producto.patineta.descripcion}}</span></p>
+
+
+
+                <section class="back-action">
+                  <input type="text" id ="buscar"/><br />
+                  <button v-on:click="capturar()">Buscar</button>                                   
+                  <p class="prueba"></p>                 
+                </section>
+                
+
+                
               </div>
-            </article>
-          
+            </article>                     
         </div>
       </div>
     </div>
@@ -55,7 +60,8 @@ export default {
   name: "getproducto",
   data: function () {
     return {
-      productos: [],     
+      productos: [],  
+      cualquiera: String   
     };
   },
   created: function () {
@@ -65,7 +71,20 @@ export default {
         .catch((error) => {
             alert("ERROR Servidor");
       });
-  },  
+  },
+  methods: {
+    capturar: function(){
+      this.cualquiera = document.getElementById('buscar').value;        
+        /*document.querySelector('.prueba').innerHTML = text; 
+        */
+    }, 
+    /*posible: function(posible){
+      console.log(posible)     
+    }   */
+  },
+    /*props:{
+    cualquiera: String,
+  },*/
 };
 </script>
 
@@ -102,12 +121,53 @@ label {
   justify-content: space-evenly;
 }
 .column-a {
-  background-color: rgba(0, 255, 255, 0.158);
+  background-color:white;
   width: 40%;
 }
 .column-b {
-  background-color: rgba(233, 150, 122, 0.199);
+  background-color: white;
   width: 60%;
 }
+.productos{
+  background-color:white;
+
+      
+  }
+.product-details{
+  text-align: left;
+  background-color: white;
+  margin: 10px;
+      
+  } 
+.product-picture{
+  text-align: center;
+  background-color:white;
+  margin: 10px;
+      
+  }
+.product-description{
+  text-align: justify;
+  background-color: white;
+  margin: 10px;
+  }
+  
+  .product-description p{    
+    margin: 10px;  
+  }
+  @media screen and (max-width: 1100px){
+    .container-column{
+      flex-wrap: wrap;
+      
+    }
+    .column-a{
+      margin:20px 0px 20px ;
+      width: 100%;
+    }
+    .column-b{
+      margin:20px 0px 20px ;
+      width: 100%;
+    }
+  }
+
 
 </style>
