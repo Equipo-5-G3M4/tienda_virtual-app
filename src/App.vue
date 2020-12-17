@@ -17,7 +17,7 @@
           <li><a v-on:click="home">Productos</a></li>
           <li><a>Ofertas</a></li>
           <li><a>Quienes somos</a></li>
-          <router-link to="/administrador/buscar"><li><a>Administrador</a></li></router-link>
+          <router-link to="/administrador"><li><a>Administrador</a></li></router-link>
         </ul>
       </nav>
     </header>
