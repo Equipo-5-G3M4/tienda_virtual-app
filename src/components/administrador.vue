@@ -71,7 +71,7 @@ export default {
     };
   }, 
   created: function(){
-    if(this.$route.params != {}){
+    if(Object.keys(this.$route.params).length > 0){
       this.buscar = this.$route.params.producto
       this.go();
     }
