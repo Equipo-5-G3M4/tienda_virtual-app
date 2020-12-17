@@ -15,9 +15,7 @@
                       <p class="product__description--category">Categoria: <span> {{producto.categoria}}</span></p>
                       <p class="product__description--description">Descripcion: <span>{{producto.descripcion}}</span></p>
                     </div>
-
                 </article>
-
           </section>
       </div>
     </div>
@@ -43,15 +41,12 @@ export default {
   
   },
   beforeCreate: function() {
+    let self = this;
     axios.get("http://127.0.0.1:8000/productos/" + this.$route.params.producto)
-    .then(result => {
-      console.log(result.data)
-      this.producto = result.data
-    })
-    .catch(error => {
-      console.log(error);
-      alert("error en el servidor", error);
-    })
+        .then(result => {self.producto = result.data})
+        .catch(error => {      
+            alert("error en el servidor", error);
+      })
   }
 }
 </script>

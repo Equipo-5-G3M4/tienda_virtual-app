@@ -23,25 +23,24 @@
         </form>
       </div>
       <div class="column-b">
-        <div class="productos" v-for="(producto, index) in productos" v-bind:key="index">          
+        <div class="productos">          
             <article  class="product-details">
               <div class="product-picture">
-                <img v-bind:src="producto.patineta.imagen" width="400" height="250" alt="">
+                <img v-bind:src="producto.imagen" width="400" height="250" alt="">
               </div>
               <div class="product-description">
-                <h2 class="title">{{producto.patineta.productoname}} </h2>                
+                <h2 class="title">{{producto.productoname}}</h2>                
                 <h2 class="vary"></h2>
-                <p class="price">  Precio:  <span>{{producto.patineta.precio}}</span></p>
-                <p class="price">  Cantidad:  <span>{{producto.patineta.existencia}}</span></p>
-                <p class="category">Categoria: <span> {{producto.patineta.categoria}}</span></p>
-                <p class="description">Descripcion: <span>{{producto.patineta.descripcion}}</span></p>
+                <p class="price">  Precio:  <span>{{producto.precio}}</span></p>
+                <p class="price">  Cantidad:  <span>{{producto.existencia}}</span></p>
+                <p class="category">Categoria: <span>{{producto.categoria}}</span></p>
+                <p class="description">Descripcion: <span>{{producto.descripcion}}</span></p>
 
 
 
                 <section class="back-action">
                   <input type="text" id ="buscar"/><br />
-                  <button v-on:click="capturar()">Buscar</button>                                   
-                  <p class="prueba"></p>                 
+                  <button v-on:click="go()">Buscar</button>                                   
                 </section>
                 
 
@@ -60,31 +59,27 @@ export default {
   name: "getproducto",
   data: function () {
     return {
-      productos: [],  
-      cualquiera: String   
+      producto: {},  
+      name: String,     
     };
-  },
+  }, 
   created: function () {
-    let self = this;
-    axios.get("http://localhost:8000/productos")
-        .then(response => (self.productos = response.data))        
+      let self = this;
+      axios.get("http://localhost:8000/productos/" +  this.$route.params.producto)
+        .then(response => {self.producto = response.data
+        console.log(response.data)})        
         .catch((error) => {
-            alert("ERROR Servidor");
-      });
+            alert("ERROR Servidor")
+      });       
   },
+ 
   methods: {
-    capturar: function(){
-      this.cualquiera = document.getElementById('buscar').value;        
-        /*document.querySelector('.prueba').innerHTML = text; 
-        */
-    }, 
-    /*posible: function(posible){
-      console.log(posible)     
-    }   */
-  },
-    /*props:{
-    cualquiera: String,
-  },*/
+    go: function() {
+    var name = document.getElementById('buscar').value;
+    this.$router.push({name: "administradorProducto", params:{producto:name}})
+    window.location.reload()
+    },    
+  },    
 };
 </script>
 

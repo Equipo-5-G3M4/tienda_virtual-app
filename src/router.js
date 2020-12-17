@@ -22,6 +22,11 @@ const router = new vueRouter({
                 name: 'administrador',
                 component: administrador
             },
+            {
+                path: '/administrador/:producto',
+                name: 'administradorProducto',
+                component: administrador
+            },
             
             
         ]
