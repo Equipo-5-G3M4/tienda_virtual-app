@@ -2,10 +2,7 @@
   <div class="container">
     <div id="administrador">
       <h1>ADMINISTRADOR</h1>
-    </div>
-    <div id="titulos">
-      <h1 id="nuevo">Agregar nuevo:</h1>      
-    </div>
+    </div>    
     <div class="container-column">
       <div class="column-a">
         <form class="entradas">
@@ -35,15 +32,14 @@
                 <img v-bind:src="producto.imagen" width="400" height="250" alt="">
               </div>
               <div class="product-description">
-                <h2 class="title">{{producto.productoname}}</h2>                
-                <h2 class="vary"></h2>
-                <p class="price">  Precio:  <span>{{producto.precio}}</span></p>
-                <p class="price">  Cantidad:  <span>{{producto.existencia}}</span></p>
-                <p class="category">Categoria: <span>{{producto.categoria}}</span></p>
-                <p class="description">Descripcion: <span>{{producto.descripcion}}</span></p>
+                <h2 class="title">{{form.productoname}}</h2>                
+                <p class="price">  Precio: $<span>{{form.precio}}</span></p>
+                <p class="price">  Cantidad:  <span>{{form.existencia}}</span></p>
+                <p class="category">Categoria: <span>{{form.categoria}}</span></p>
+                <p class="description">Descripcion: <span>{{form.descripcion}}</span></p>
 
                 <section class="action">
-                  <input type="text" id ="buscar"/><br />
+                  <input type="text" id ="buscar" v-model="buscar"/><br />
                   <button v-on:click="go()">Buscar</button> 
                   <button v-on:click="save()">Guardar</button>                                  
                 </section>
@@ -62,6 +58,7 @@ export default {
   name: "getproducto",
   data: function () {
     return {
+      buscar: "",
       producto: {},  
       form:{
         "productoname": "",
@@ -73,22 +70,25 @@ export default {
       }         
     };
   }, 
-  created: function () {
-      let self = this;
-      //axios.get("http://localhost:8000/productos/" +  this.$route.params.producto)
-      axios.get("https://tienda-virtual12.herokuapp.com/productos/" +  this.$route.params.producto)
-        .then(response => {self.producto = response.data
-        console.log(response.data)})        
-        .catch((error) => {
-            alert("ERROR Servidor")
-      });       
+  created: function(){
+    if(this.$route.params != {}){
+      this.buscar = this.$route.params.producto
+      this.go();
+    }
   },
- 
+   
   methods: {
     go: function() {
-    var name = document.getElementById('buscar').value;
-    this.$router.push({name: "administradorProducto", params:{producto:name}})
-    window.location.reload()
+    this.$router.push({name: "administradorProducto", params: {producto: this.buscar}})
+    let self = this;
+      //axios.get("http://localhost:8000/productos/" +  this.$route.params.producto)
+      axios.get("https://tienda-virtual12.herokuapp.com/productos/" +  this.$route.params.producto)
+        .then(response => { self.producto = response.data
+                            self.form = response.data
+                            console.log(response.data)})        
+        .catch((error) => {
+            alert("ERROR Servidor")
+      });
     },    
     save: function(){
       //axios.post("http://localhost:8000/productos", this.form)
