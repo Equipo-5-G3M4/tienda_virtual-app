@@ -71,7 +71,7 @@ export default {
     };
   },
   created: function(){
-    if(Object.keys(this.$route.params).length > 0){
+    if(Object.keys(this.$route.params).length != 0){
       this.buscar = this.$route.params.producto
       this.go();
     }
@@ -79,23 +79,26 @@ export default {
 
   methods: {
     go: function() {
-    this.$router.push({name: "administradorProducto", params: {producto: this.buscar}})
-    let self = this;
+      if(this.$route.path != '/administrador/'+this.buscar) {
+        this.$router.push({name: "administradorProducto", params: {producto: this.buscar}})
+      }
+      let self = this;
       //axios.get("http://localhost:8000/productos/" +  this.$route.params.producto)
-      axios.get("https://tienda-virtual12.herokuapp.com/productos/" +  this.$route.params.producto)
-        .then(response => { self.producto = response.data
-                            self.form = response.data
-                            console.log(response.data)})
+      axios.get("https://tienda-virtual12.herokuapp.com/productos/" + this.$route.params.producto)
+        .then(response => {
+          self.producto = response.data
+          self.form = response.data
+        })
         .catch((error) => {
-            alert("ERROR Servidor")
-      });
+          alert("ERROR Servidor")
+        });
     },
     save: function(){
       //axios.post("http://localhost:8000/productos", this.form)
       axios.post("https://tienda-virtual12.herokuapp.com/productos", this.form)
       .then(data =>{
         console.log(data)
-        .catch((error) => {
+          .catch((error) => {
             alert("ERROR Servidor")
           });
       })
