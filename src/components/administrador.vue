@@ -3,9 +3,6 @@
     <div id="administrador">
       <h1>ADMINISTRADOR</h1>
     </div>
-    <div id="titulos">
-      <h1 id="nuevo">Agregar nuevo:</h1>
-    </div>
     <div class="container-column">
       <div class="column-a">
         <form class="entradas">
@@ -36,8 +33,7 @@
               </div>
               <div class="product-description">
                 <h2 class="title">{{form.productoname}}</h2>
-                <h2 class="vary"></h2>
-                <p class="price">  Precio:  <span>{{form.precio}}</span></p>
+                <p class="price">  Precio: $<span>{{form.precio}}</span></p>
                 <p class="price">  Cantidad:  <span>{{form.existencia}}</span></p>
                 <p class="category">Categoria: <span>{{form.categoria}}</span></p>
                 <p class="description">Descripcion: <span>{{form.descripcion}}</span></p>
@@ -63,6 +59,7 @@ export default {
   data: function () {
     return {
       buscar: "",
+      producto: {},
       form:{
         "productoname": "",
         "precio": 0,
@@ -73,7 +70,7 @@ export default {
       }
     };
   },
-  created: function () {
+  created: function(){
     if(Object.keys(this.$route.params).length > 0){
       this.buscar = this.$route.params.producto
       this.go();
@@ -82,14 +79,13 @@ export default {
 
   methods: {
     go: function() {
-      this.$router.push({name: "administradorProducto", params:{producto: this.buscar}})
-      console.log(this.$route.params)
-      let self = this;
+    this.$router.push({name: "administradorProducto", params: {producto: this.buscar}})
+    let self = this;
       //axios.get("http://localhost:8000/productos/" +  this.$route.params.producto)
       axios.get("https://tienda-virtual12.herokuapp.com/productos/" +  this.$route.params.producto)
-        .then(response => {
-          self.form = response.data
-          console.log(response.data)})
+        .then(response => { self.producto = response.data
+                            self.form = response.data
+                            console.log(response.data)})
         .catch((error) => {
             alert("ERROR Servidor")
       });
