@@ -75,7 +75,8 @@ export default {
   }, 
   created: function () {
       let self = this;
-      axios.get("http://localhost:8000/productos/" +  this.$route.params.producto)
+      //axios.get("http://localhost:8000/productos/" +  this.$route.params.producto)
+      axios.get("https://tienda-virtual12.herokuapp.com/productos/" +  this.$route.params.producto)
         .then(response => {self.producto = response.data
         console.log(response.data)})        
         .catch((error) => {
@@ -90,7 +91,8 @@ export default {
     window.location.reload()
     },    
     save: function(){
-      axios.post("http://localhost:8000/productos", this.form)
+      //axios.post("http://localhost:8000/productos", this.form)
+      axios.post("https://tienda-virtual12.herokuapp.com/productos", this.form)
       .then(data =>{
         console.log(data)
         .catch((error) => {
