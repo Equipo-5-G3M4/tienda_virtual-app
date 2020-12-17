@@ -4,7 +4,7 @@
       <h1>ADMINISTRADOR</h1>
     </div>
     <div id="titulos">
-      <h1 id="nuevo">Agregar nuevo:</h1>      
+      <h1 id="nuevo">Agregar nuevo:</h1>
     </div>
     <div class="container-column">
       <div class="column-a">
@@ -29,27 +29,27 @@
         </form>
       </div>
       <div class="column-b">
-        <div class="productos">          
+        <div class="productos">
             <article  class="product-details">
               <div class="product-picture">
-                <img v-bind:src="producto.imagen" width="400" height="250" alt="">
+                <img v-bind:src="form.imagen" width="400" height="250" alt="">
               </div>
               <div class="product-description">
-                <h2 class="title">{{producto.productoname}}</h2>                
+                <h2 class="title">{{form.productoname}}</h2>
                 <h2 class="vary"></h2>
-                <p class="price">  Precio:  <span>{{producto.precio}}</span></p>
-                <p class="price">  Cantidad:  <span>{{producto.existencia}}</span></p>
-                <p class="category">Categoria: <span>{{producto.categoria}}</span></p>
-                <p class="description">Descripcion: <span>{{producto.descripcion}}</span></p>
+                <p class="price">  Precio:  <span>{{form.precio}}</span></p>
+                <p class="price">  Cantidad:  <span>{{form.existencia}}</span></p>
+                <p class="category">Categoria: <span>{{form.categoria}}</span></p>
+                <p class="description">Descripcion: <span>{{form.descripcion}}</span></p>
 
                 <section class="action">
-                  <input type="text" id ="buscar"/><br />
-                  <button v-on:click="go()">Buscar</button> 
-                  <button v-on:click="save()">Guardar</button>                                  
+                  <input type="text" id ="buscar" v-model="buscar"/><br />
+                  <button v-on:click="go()">Buscar</button>
+                  <button v-on:click="save()">Guardar</button>
                 </section>
 
               </div>
-            </article>                     
+            </article>
         </div>
       </div>
     </div>
@@ -62,7 +62,7 @@ export default {
   name: "getproducto",
   data: function () {
     return {
-      producto: {},  
+      buscar: "",
       form:{
         "productoname": "",
         "precio": 0,
@@ -70,26 +70,30 @@ export default {
         "existencia": 0,
         "categoria": "",
         "imagen": "",
-      }         
+      }
     };
-  }, 
+  },
   created: function () {
+    if(Object.keys(this.$route.params).length > 0){
+      this.buscar = this.$route.params.producto
+      this.go();
+    }
+  },
+
+  methods: {
+    go: function() {
+      this.$router.push({name: "administradorProducto", params:{producto: this.buscar}})
+      console.log(this.$route.params)
       let self = this;
       //axios.get("http://localhost:8000/productos/" +  this.$route.params.producto)
       axios.get("https://tienda-virtual12.herokuapp.com/productos/" +  this.$route.params.producto)
-        .then(response => {self.producto = response.data
-        console.log(response.data)})        
+        .then(response => {
+          self.form = response.data
+          console.log(response.data)})
         .catch((error) => {
             alert("ERROR Servidor")
-      });       
-  },
- 
-  methods: {
-    go: function() {
-    var name = document.getElementById('buscar').value;
-    this.$router.push({name: "administradorProducto", params:{producto:name}})
-    window.location.reload()
-    },    
+      });
+    },
     save: function(){
       //axios.post("http://localhost:8000/productos", this.form)
       axios.post("https://tienda-virtual12.herokuapp.com/productos", this.form)
@@ -97,10 +101,10 @@ export default {
         console.log(data)
         .catch((error) => {
             alert("ERROR Servidor")
-          });      
+          });
       })
     },
-  },    
+  },
 };
 </script>
 
@@ -147,28 +151,28 @@ label {
 .productos{
   background-color:white;
 
-      
+
   }
 .product-details{
   text-align: left;
   background-color: white;
   margin: 10px;
-      
-  } 
+
+  }
 .product-picture{
   text-align: center;
   background-color:white;
   margin: 10px;
-      
+
   }
 .product-description{
   text-align: justify;
   background-color: white;
   margin: 10px;
   }
-  
-  .product-description p{    
-    margin: 10px;  
+
+  .product-description p{
+    margin: 10px;
   }
   .action{
     display: flex;
@@ -190,7 +194,7 @@ label {
 }
   .action button:hover{
     color: black;
-    background-color: white;    
+    background-color: white;
 }
 #titulos{
   display: flex;
@@ -203,7 +207,7 @@ label {
   @media screen and (max-width: 1100px){
     .container-column{
       flex-wrap: wrap;
-      
+
     }
     .column-a{
       margin:20px 0px 20px ;
