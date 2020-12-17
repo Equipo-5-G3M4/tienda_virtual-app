@@ -3,23 +3,29 @@
     <div id="administrador">
       <h1>ADMINISTRADOR</h1>
     </div>
+    <div id="titulos">
+      <h1 id="nuevo">Agregar nuevo:</h1>      
+    </div>
     <div class="container-column">
       <div class="column-a">
         <form class="entradas">
           <label for="titulo">Titulo:</label><br />
-          <input type="text" id="titulo" name="titulo" /><br />
+          <input type="text" id="titulo" name="titulo" v-model="form.productoname"/><br />
 
-          <label for="cantidad">Cantidad:</label><br />
-          <input type="number" id="cantidad" name="cantidad" /><br />
+          <label for="categoria">Categoria:</label><br />
+          <input type="text" id="categoria" name="categoria" v-model="form.categoria"/><br />
+
+          <label for="existencia">Cantidad:</label><br />
+          <input type="number" id="existencia" name="existencia" v-model="form.existencia"/><br />
 
           <label for="precio">Precio:</label><br />
-          <input type="text" id="precio" name="precio" /><br />
+          <input type="number" id="precio" name="precio" v-model="form.precio"/><br />
 
           <label for="descripcion">Descripción:</label><br />
-          <textarea name="descripcion" id="descripcion" cols="30" rows="10" ></textarea><br />
+          <textarea name="descripcion" id="descripcion" cols="30" rows="10" v-model="form.descripcion"></textarea><br />
 
           <label for="imagen">Imagen:</label><br />
-          <input type="text" id="imagen" name="imagen" /><br />
+          <input type="text" id="imagen" name="imagen" v-model="form.imagen"/><br />
         </form>
       </div>
       <div class="column-b">
@@ -36,15 +42,12 @@
                 <p class="category">Categoria: <span>{{producto.categoria}}</span></p>
                 <p class="description">Descripcion: <span>{{producto.descripcion}}</span></p>
 
-
-
-                <section class="back-action">
+                <section class="action">
                   <input type="text" id ="buscar"/><br />
-                  <button v-on:click="go()">Buscar</button>                                   
+                  <button v-on:click="go()">Buscar</button> 
+                  <button v-on:click="save()">Guardar</button>                                  
                 </section>
-                
 
-                
               </div>
             </article>                     
         </div>
@@ -60,7 +63,14 @@ export default {
   data: function () {
     return {
       producto: {},  
-      name: String,     
+      form:{
+        "productoname": "",
+        "precio": 0,
+        "descripcion": "",
+        "existencia": 0,
+        "categoria": "",
+        "imagen": "",
+      }         
     };
   }, 
   created: function () {
@@ -79,6 +89,15 @@ export default {
     this.$router.push({name: "administradorProducto", params:{producto:name}})
     window.location.reload()
     },    
+    save: function(){
+      axios.post("http://localhost:8000/productos", this.form)
+      .then(data =>{
+        console.log(data)
+        .catch((error) => {
+            alert("ERROR Servidor")
+          });      
+      })
+    },
   },    
 };
 </script>
@@ -149,6 +168,36 @@ label {
   .product-description p{    
     margin: 10px;  
   }
+  .action{
+    display: flex;
+    justify-content:center;
+    padding: 10px 0;
+    margin:50px;
+}
+  .action button {
+    padding: .8em 1em;
+    cursor: pointer;
+    outline: none;
+    color: white;
+    background-color: black;
+    border: 1px solid black;
+    border-radius: 8px;
+    font-weight: bold;
+    box-sizing: border-box;
+    margin:0px 40px;
+}
+  .action button:hover{
+    color: black;
+    background-color: white;    
+}
+#titulos{
+  display: flex;
+  justify-content:left;
+  font-size: 80%;
+}
+#nuevo{
+  margin: 0px 0px 20px 50px;
+}
   @media screen and (max-width: 1100px){
     .container-column{
       flex-wrap: wrap;
