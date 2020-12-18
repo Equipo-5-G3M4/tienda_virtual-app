@@ -248,4 +248,24 @@ h2{
 #home a svg:hover {
   fill: #00F87C;
 }
+
+@media screen and (max-width: 1100px){
+    #app nav ul {
+      flex-wrap: wrap;
+      height: 140px;
+  }
+  nav{    
+    height: 140px;    
+  }  
+  a{
+    margin: 0px 0px;
+    font-size: 21px;
+  }
+  #home{
+    
+    margin: 10px 0px;
+    
+  }
+}
+
 </style>
