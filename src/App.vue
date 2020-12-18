@@ -17,7 +17,7 @@
           <li><a v-on:click="home">Productos</a></li>
           <li><a>Ofertas</a></li>
           <li><a>Quienes somos</a></li>
-          <router-link to="/administrador"><li><a>Administrador</a></li></router-link>
+          <li><a v-on:click="admin">Administrador</a></li>
         </ul>
       </nav>
     </header>
@@ -59,7 +59,7 @@
           </div>
         </div>
       </div>
-      <div class="container-mid-footer">        
+      <div class="container-mid-footer">
         <div class="siguenos">
           <h2>SIGUENOS EN NUESTRAS REDES SOCIALES</h2>
           <div id="redes">
@@ -84,7 +84,14 @@ export default{
   name: 'App',
   methods : {
     home : function() {
-      this.$router.push({name: 'root'})
+      if(this.$route.path != '/') {
+        this.$router.push({name: 'root'})
+      }
+    },
+    admin: function () {
+      if(this.$route.path != '/administrador') {
+        this.$router.push({name: 'administrador'})
+      }
     }
   }
 }
@@ -208,64 +215,67 @@ h2{
 }
 #app nav {
   width: 100%;
-  background-color: #3F3F3F;
 }
 #app nav ul {
-  margin: 0px;
-  padding: 0px 20px;
-  height: 92px;
   display: flex;
+  flex-flow: row wrap;
   justify-content: space-around;
   align-items: center;
-}
-#app header nav ul li{
-  display: block;
+
+  list-style: none;
+  margin: 0;
   padding: 0 20px;
-  font-size: 24px;
-  color: #FFFFFF;
+  background: #3F3F3F;
+}
+#app header nav a{
+  text-decoration: none;
+  display: block;
+  padding: 0.3em;
+  margin: 0.5em;
+  color: white;
+
+  font-size: 20px;
   font-weight: 600;
 }
-#app header nav ul li:hover {
+#app header nav a:hover {
   border-bottom: 5px #00F87C solid;
-  line-height: 40px;
   color: #00F87C;
 }
-#home {
-  border: 3px #FFFFFF solid;
+#home a {
+  border: 2px #FFFFFF solid;
   border-radius: 25px;
 }
-#app header nav ul #home:hover {
-  line-height: 25px;
-  border: 3px #00F87C solid;
+#home a:hover {
+  border: 2px #00F87C solid !important;
 }
 #home a svg {
-  height: 40px;
-  width: 40px;
+  height: 20px;
+  width: 20px;
   fill: white;
   position: relative;
-  top: 4px;
+  top: 2px;
 }
 #home a svg:hover {
   fill: #00F87C;
 }
-
-@media screen and (max-width: 1100px){
-    #app nav ul {
-      flex-wrap: wrap;
-      height: 140px;
-  }
-  nav{    
-    height: 140px;    
-  }  
-  a{
-    margin: 0px 0px;
-    font-size: 21px;
-  }
-  #home{
-    
-    margin: 10px 0px;
-    
+@media all and (max-width: 800px) {
+  #header nav ul {
+    justify-content: space-around;
   }
 }
-
+@media all and (max-width: 600px) {
+  #header nav ul {
+    flex-flow: column wrap;
+    padding: 0;
+  }
+  #header nav ul a {
+    text-align: center;
+    padding: 10px;
+    border-top: 1px solid rgba(255, 255, 255,0.3);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+  #header nav ul li:last-of-type a {
+    border-bottom: none;
+  }
+}
 </style>

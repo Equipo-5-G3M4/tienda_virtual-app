@@ -2,7 +2,7 @@
   <div class="container">
     <div id="administrador">
       <h1>ADMINISTRADOR</h1>
-    </div>    
+    </div>
     <div class="container-column">
       <div class="column-a">
         <form class="entradas">
@@ -26,13 +26,13 @@
         </form>
       </div>
       <div class="column-b">
-        <div class="productos">          
+        <div class="productos">
             <article  class="product-details">
               <div class="product-picture">
-                <img v-bind:src="producto.imagen" width="400" height="250" alt="">
+                <img v-bind:src="form.imagen" width="400" height="250" alt="">
               </div>
               <div class="product-description">
-                <h2 class="title">{{form.productoname}}</h2>                
+                <h2 class="title">{{form.productoname}}</h2>
                 <p class="price">  Precio: $<span>{{form.precio}}</span></p>
                 <p class="price">  Cantidad:  <span>{{form.existencia}}</span></p>
                 <p class="category">Categoria: <span>{{form.categoria}}</span></p>
@@ -40,12 +40,12 @@
 
                 <section class="action">
                   <input type="text" id ="buscar" v-model="buscar"/><br />
-                  <button v-on:click="go()">Buscar</button> 
-                  <button v-on:click="save()">Guardar</button>                                  
+                  <button v-on:click="go()">Buscar</button>
+                  <button v-on:click="save()">Guardar</button>
                 </section>
 
               </div>
-            </article>                     
+            </article>
         </div>
       </div>
     </div>
@@ -59,7 +59,7 @@ export default {
   data: function () {
     return {
       buscar: "",
-      producto: {},  
+      producto: {},
       form:{
         "productoname": "",
         "precio": 0,
@@ -67,40 +67,43 @@ export default {
         "existencia": 0,
         "categoria": "",
         "imagen": "",
-      }         
+      }
     };
-  }, 
+  },
   created: function(){
-    if(Object.keys(this.$route.params).length > 0){
+    if(Object.keys(this.$route.params).length != 0){
       this.buscar = this.$route.params.producto
       this.go();
     }
   },
-   
+
   methods: {
     go: function() {
-    this.$router.push({name: "administradorProducto", params: {producto: this.buscar}})
-    let self = this;
+      if(this.$route.path != '/administrador/'+this.buscar) {
+        this.$router.push({name: "administradorProducto", params: {producto: this.buscar}})
+      }
+      let self = this;
       //axios.get("http://localhost:8000/productos/" +  this.$route.params.producto)
-      axios.get("https://tienda-virtual12.herokuapp.com/productos/" +  this.$route.params.producto)
-        .then(response => { self.producto = response.data
-                            self.form = response.data
-                            console.log(response.data)})        
+      axios.get("https://tienda-virtual12.herokuapp.com/productos/" + this.$route.params.producto)
+        .then(response => {
+          self.producto = response.data
+          self.form = response.data
+        })
         .catch((error) => {
-            alert("ERROR Servidor")
-      });
-    },    
+          alert("ERROR Servidor")
+        });
+    },
     save: function(){
       //axios.post("http://localhost:8000/productos", this.form)
       axios.post("https://tienda-virtual12.herokuapp.com/productos", this.form)
       .then(data =>{
         console.log(data)
-        .catch((error) => {
+          .catch((error) => {
             alert("ERROR Servidor")
-          });      
+          });
       })
     },
-  },    
+  },
 };
 </script>
 
@@ -147,28 +150,28 @@ label {
 .productos{
   background-color:white;
 
-      
+
   }
 .product-details{
   text-align: left;
   background-color: white;
   margin: 10px;
-      
-  } 
+
+  }
 .product-picture{
   text-align: center;
   background-color:white;
   margin: 10px;
-      
+
   }
 .product-description{
   text-align: justify;
   background-color: white;
   margin: 10px;
   }
-  
-  .product-description p{    
-    margin: 10px;  
+
+  .product-description p{
+    margin: 10px;
   }
   .action{
     display: flex;
@@ -190,7 +193,7 @@ label {
 }
   .action button:hover{
     color: black;
-    background-color: white;    
+    background-color: white;
 }
 #titulos{
   display: flex;
@@ -203,7 +206,7 @@ label {
   @media screen and (max-width: 1100px){
     .container-column{
       flex-wrap: wrap;
-      
+
     }
     .column-a{
       margin:20px 0px 20px ;
