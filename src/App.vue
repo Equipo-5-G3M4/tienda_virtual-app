@@ -18,7 +18,7 @@
           <li><a>Ofertas</a></li>
           <li><a>Quienes somos</a></li>
           <li><a v-on:click="admin">Administrador</a></li>
-          <button v-on:click="logOut" v-if="is_auth" >Cerrar Sesión</button>          
+          <button  v-on:click="logOut" v-if="is_auth" >Cerrar Sesión</button>          
         </ul>
       </nav>
     </header>
@@ -86,12 +86,9 @@ export default{
   
   data: function(){
       return{ 
-        is_auth: localStorage.getItem('isAuth') || false
-      
-        
+        is_auth: localStorage.getItem('isAuth') || false             
       }    
   },
-
 
   methods : {
     home : function() {
@@ -100,8 +97,14 @@ export default{
       }
     },
     admin: function () {
-      if(this.$route.path != '/user/auth') {
-        this.$router.push({name: 'user_auth'})
+      var self = this
+      let username  = localStorage.getItem('current_username')
+      let is_auth  = localStorage.getItem('isAuth')
+      if(this.$route.path != '/user/auth' && self.is_auth == false) {
+        self.$router.push({name: 'user_auth'})
+      }
+      else if (is_auth == 'true'){
+        self.$router.push({name: "administrador", params: {username: username}})
       }
     },
 
@@ -112,7 +115,7 @@ export default{
         self.$router.push({name: "user_auth"})
       else{
         let username = localStorage.getItem("current_username")
-        self.$router.push({name: "user", params:{ username: username }})
+        self.$router.push({name: "administrador", params: {username: username}})
       }  
     },
     logIn: function(username){
@@ -126,9 +129,9 @@ export default{
       this.updateAuth()
     },
     init: function(){
-      if(this.$route.name != "user"){
+      if(this.$route.name != "administrador"){
         let username = localStorage.getItem("current_username")
-        this.$router.push({name: "user", params:{ username: username }})
+        this.$router.push({name: "administrador", params:{ username: username }})
       }
     },
     created: function(){
@@ -322,4 +325,19 @@ h2{
     border-bottom: none;
   }
 }
+button{
+        
+        height: 40px;
+        color: #E5E7E9;
+        background: #000000;
+        border: 1px solid #E5E7E9;
+        border-radius: 5px;
+        padding: 10px 25px;
+        margin: 5px 0;
+    }
+    button:hover{
+        color: #000000;
+        background: rgb(255, 255, 255);
+        border: 1px solid #283747;
+    }
 </style>

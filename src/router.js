@@ -19,12 +19,12 @@ const router = new vueRouter({
                 component: Product
             },
             {
-                path: '/administrador',
+                path: '/administrador/:username',
                 name: 'administrador',
                 component: administrador
             },
             {
-                path: '/administrador/:producto',
+                path: '/administrador/:username/:producto',
                 name: 'administradorProducto',
                 component: administrador
             }, 
