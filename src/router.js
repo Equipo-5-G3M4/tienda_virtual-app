@@ -2,6 +2,7 @@ import vueRouter from 'vue-router'
 import Shop from './components/Shop'
 import Product from './components/product_details'
 import administrador from './components/administrador.vue'
+import UserAuth from './components/userAuth.vue'
 
 const router = new vueRouter({
         mode: 'history',
@@ -18,15 +19,20 @@ const router = new vueRouter({
                 component: Product
             },
             {
-                path: '/administrador',
+                path: '/administrador/:username',
                 name: 'administrador',
                 component: administrador
             },
             {
-                path: '/administrador/:producto',
+                path: '/administrador/:username/:producto',
                 name: 'administradorProducto',
                 component: administrador
-            },            
+            }, 
+            {
+                path: '/user/auth',
+                name: 'user_auth',
+                component: UserAuth
+            },           
         ]
     })
 
