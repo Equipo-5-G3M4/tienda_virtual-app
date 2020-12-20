@@ -17,13 +17,14 @@
           <li><a v-on:click="home">Productos</a></li>
           <li><a>Ofertas</a></li>
           <li><a>Quienes somos</a></li>
-          <li><a v-on:click="admin">Administrador</a></li>          
+          <li><a v-on:click="admin">Administrador</a></li>
+          <button v-on:click="logOut" v-if="is_auth" >Cerrar Sesión</button>          
         </ul>
       </nav>
     </header>
 <!-------HEADER--------------------->
 <!-------BODY--------------------->
-      <router-view>  </router-view>
+      <router-view v-on:log-in="logIn" >  </router-view>
 <!-------BODY--------------------->
 <!-------FOOTER--------------------->
     <footer>
@@ -81,7 +82,17 @@
 
 <script>
 export default{
-  name: 'App',  
+  name: 'App', 
+  
+  data: function(){
+      return{ 
+        is_auth: localStorage.getItem('isAuth') || false
+      
+        
+      }    
+  },
+
+
   methods : {
     home : function() {
       if(this.$route.path != '/') {
@@ -89,10 +100,42 @@ export default{
       }
     },
     admin: function () {
-      if(this.$route.path != '/administrador') {
-        this.$router.push({name: 'administrador'})
+      if(this.$route.path != '/user/auth') {
+        this.$router.push({name: 'user_auth'})
       }
     },
+
+    updateAuth: function(){
+      var self = this
+      self.is_auth  = localStorage.getItem('isAuth') || false
+      if(self.is_auth == false)
+        self.$router.push({name: "user_auth"})
+      else{
+        let username = localStorage.getItem("current_username")
+        self.$router.push({name: "user", params:{ username: username }})
+      }  
+    },
+    logIn: function(username){
+      localStorage.setItem('current_username', username)
+      localStorage.setItem('isAuth', true)
+      this.updateAuth()
+    },
+    logOut: function(){
+      localStorage.removeItem('isAuth')
+      localStorage.removeItem('current_username')
+      this.updateAuth()
+    },
+    init: function(){
+      if(this.$route.name != "user"){
+        let username = localStorage.getItem("current_username")
+        this.$router.push({name: "user", params:{ username: username }})
+      }
+    },
+    created: function(){
+    this.$router.push({name: "root"})
+    this.updateAuth()
+  }
+
     
   }
 }
