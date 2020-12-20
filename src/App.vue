@@ -17,13 +17,13 @@
           <li><a v-on:click="home">Productos</a></li>
           <li><a>Ofertas</a></li>
           <li><a>Quienes somos</a></li>
-          <li><a v-on:click="admin">Administrador</a></li>
+          <li><a v-on:click="admin">Administrador</a></li>          
         </ul>
       </nav>
     </header>
 <!-------HEADER--------------------->
 <!-------BODY--------------------->
-      <router-view></router-view>
+      <router-view>  </router-view>
 <!-------BODY--------------------->
 <!-------FOOTER--------------------->
     <footer>
@@ -81,7 +81,7 @@
 
 <script>
 export default{
-  name: 'App',
+  name: 'App',  
   methods : {
     home : function() {
       if(this.$route.path != '/') {
@@ -92,7 +92,8 @@ export default{
       if(this.$route.path != '/administrador') {
         this.$router.push({name: 'administrador'})
       }
-    }
+    },
+    
   }
 }
 </script>
