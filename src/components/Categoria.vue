@@ -19,8 +19,8 @@ export default {
       productos: []
     }
   },
+  props: ['category'],
   created: function() {
-    console.log(this.$route.params.categoria)
     //axios.get("https://tienda-virtual12.herokuapp.com/productos")
     axios.get("http://127.0.0.1:8000/info/" + this.categoria_in)
         .then(resultado => {this.productos = resultado.data})

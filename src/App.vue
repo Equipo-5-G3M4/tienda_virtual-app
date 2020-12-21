@@ -23,7 +23,7 @@
       </nav>
     </header>
     <aside>
-      <ul>
+      <ul id="verticalbar">
         <li v-for="categoria in categorias" v-bind:key="categoria.id"><a v-on:click="vistaCategoria(categoria.nombre)">{{categoria.nombre}}</a></li>
       </ul>
     </aside>
@@ -146,8 +146,9 @@ export default{
       this.updateAuth()
     },
     vistaCategoria: function (categoria_in) {
-      console.log(this.categorias)
-      this.$router.push({name: 'mostrarCategoria', params: {categoria: categoria_in}})
+      if(this.$route.path != '/mostrar/' + categoria_in) {
+        this.$router.push({name: 'mostrarCategoria', params: {categoria: categoria_in}})
+      }
     }
   },
   beforeCreate() {
@@ -340,18 +341,48 @@ h2{
   }
 }
 button{
+  height: 40px;
+  color: #E5E7E9;
+  background: #000000;
+  border: 1px solid #E5E7E9;
+  border-radius: 5px;
+  padding: 10px 25px;
+  margin: 5px 0;
+}
+button:hover{
+  color: #000000;
+  background: rgb(255, 255, 255);
+  border: 1px solid #283747;
+}
+#app aside {
+  float: left;
+  width: 15%;
+  height: 100vh;
+}
+#app aside ul {
+  display: flex;
+  flex-flow: column;
 
-        height: 40px;
-        color: #E5E7E9;
-        background: #000000;
-        border: 1px solid #E5E7E9;
-        border-radius: 5px;
-        padding: 10px 25px;
-        margin: 5px 0;
-    }
-    button:hover{
-        color: #000000;
-        background: rgb(255, 255, 255);
-        border: 1px solid #283747;
-    }
+  list-style: none;
+  margin: 0;
+  padding: 0 20px;
+  background: #3F3F3F;
+}
+#app aside a{
+  text-decoration: none;
+  display: block;
+  padding: 0.3em;
+  margin: 0.5em;
+  color: white;
+
+  font-size: 20px;
+  font-weight: 600;
+}
+#app aside a:hover {
+  border-bottom: 5px #00F87C solid;
+  color: #00F87C;
+}
+router-view {
+  float: left;
+}
 </style>
