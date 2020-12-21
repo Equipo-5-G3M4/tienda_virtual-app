@@ -116,4 +116,19 @@ export default {
         background: rgb(255, 255, 255);
         border: 1px solid #283747;
     }
+@media screen and (max-width: 1100px){
+    .container_auth_user{
+        width: 30%;
+    }
+}
+@media screen and (max-width: 900px){
+    .container_auth_user{
+        width: 50%;
+    }
+}
+@media screen and (max-width: 700px){
+    .container_auth_user{
+        width: 80%;
+    }
+}
 </style>

@@ -35,7 +35,7 @@
                 <h2 class="title">{{form.productoname}}</h2>
                 <p class="price">  Precio: $<span>{{form.precio}}</span></p>
                 <p class="price">  Cantidad:  <span>{{form.existencia}}</span></p>
-                <p class="category">Categoria: <span>{{form.categoria}}</span></p>
+                <p class="category">Categoria: <span v-for="cat in producto.categoria" v-bind:key="cat" >{{cat}}</span></p>
                 <p class="description">Descripcion: <span>{{form.descripcion}}</span></p>
 
                 <section class="action">
