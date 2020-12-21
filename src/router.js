@@ -2,7 +2,7 @@ import vueRouter from 'vue-router'
 import Shop from './components/Shop'
 import Product from './components/product_details'
 import administrador from './components/administrador.vue'
-import UserAuth from './components/userAuth.vue'
+import UserAuth from './components/UserAuth.vue'
 
 const router = new vueRouter({
         mode: 'history',
