@@ -152,7 +152,7 @@ export default{
     }
   },
   beforeCreate() {
-    axios.get('http://127.0.0.1:8000/info/categorias/')
+    axios.get('https://tienda-virtual12.herokuapp.com/info/categorias/')
     .then(resultado => {this.categorias = resultado.data})
     .catch(error => {alert('error en el servidor ' + error)})
   }
