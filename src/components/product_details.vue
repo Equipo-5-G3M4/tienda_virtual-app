@@ -42,8 +42,8 @@ export default {
   },
   beforeCreate: function() {
     let self = this;
-    //axios.get("http://127.0.0.1:8000/productos/" + this.$route.params.producto)
-    axios.get("https://tienda-virtual12.herokuapp.com/productos/" + this.$route.params.producto)
+    axios.get("http://127.0.0.1:8000/productos/" + this.$route.params.producto)
+    //axios.get("https://tienda-virtual12.herokuapp.com/productos/" + this.$route.params.producto)
         .then(result => {self.producto = result.data})
         .catch(error => {      
             alert("error en el servidor", error);

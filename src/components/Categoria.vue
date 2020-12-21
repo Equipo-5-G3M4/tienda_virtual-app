@@ -21,8 +21,8 @@ export default {
   },
   props: ['category'],
   created: function() {
-    axios.get("https://tienda-virtual12.herokuapp.com/info/" + this.categoria_in)
-    //axios.get("http://127.0.0.1:8000/info/" + this.categoria_in)
+    //axios.get("https://tienda-virtual12.herokuapp.com/info/" + this.categoria_in)
+    axios.get("http://127.0.0.1:8000/info/" + this.categoria_in)
         .then(resultado => {this.productos = resultado.data})
         .catch(error => {
             alert("error en el servidor " + error);
