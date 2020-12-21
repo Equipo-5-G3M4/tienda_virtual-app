@@ -8,7 +8,7 @@
       <div class="card__description">
         <p class="card__description--title">{{name}} </p>
         <p class="card__description--price">Precio: {{value}}</p>
-        <p class="card__description--category">{{category}}</p>
+        <p v-for="cat in category" v-bind:key="cat" class="card__description--category">{{cat}}</p>
       </div>
     </article>
   </div>
@@ -38,23 +38,34 @@ export default {
   overflow: hidden;  
   box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
   cursor: pointer;
+  min-height: 360px;
+  max-height: 360px;
+  position: relative;
 }
 .card__picture{
   margin-bottom: .8em;
-  opacity: 0.5;
+  opacity: 0.8;
+  max-height: 220px;
+  display: flex;
+  justify-content: center;
 }
 .card:hover  .card__picture{
   opacity: 1;
 }
 .card__picture img {
-  width: 220px;
- object-fit: cover;
+      width: 90%;
+  max-height: 220px;
+ object-fit: contain;
 }
 .card__description{
   padding: 1em 0;
   /* border-top: 1px solid rgba(0, 0, 0, 0.05); */
   border-radius: 5px 5px 0 0 ;
   background-color: rgba(0, 0, 0, 0.01);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
 }
 
 .card__description--title{

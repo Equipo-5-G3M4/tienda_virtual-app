@@ -2,7 +2,8 @@ import VueRouter from 'vue-router'
 import Shop from './components/Shop'
 import Product from './components/product_details'
 import administrador from './components/administrador.vue'
-import categoria from './components/Categoria'
+import UserAuth from './components/UserAuth.vue'
+import Categoria from './components/Categoria'
 
 const router = new VueRouter({
         mode: 'history',
@@ -19,20 +20,25 @@ const router = new VueRouter({
                 component: Product
             },
             {
-                path: '/administrador',
+                path: '/administrador/:username',
                 name: 'administrador',
                 component: administrador
             },
             {
-                path: '/administrador/:producto',
+                path: '/administrador/:username/:producto',
                 name: 'administradorProducto',
                 component: administrador
             },
             {
+                path: '/user/auth',
+                name: 'user_auth',
+                component: UserAuth
+            },
+            {
                 path: '/mostrar/:categoria',
                 name: 'mostrarCategoria',
-                component: categoria
-            },
+                component: Categoria
+            }
         ]
     })
 

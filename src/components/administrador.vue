@@ -1,4 +1,4 @@
-<template>
+<template  >
   <div class="container">
     <div id="administrador">
       <h1>ADMINISTRADOR</h1>
@@ -35,7 +35,7 @@
                 <h2 class="title">{{form.productoname}}</h2>
                 <p class="price">  Precio: $<span>{{form.precio}}</span></p>
                 <p class="price">  Cantidad:  <span>{{form.existencia}}</span></p>
-                <p class="category">Categoria: <span>{{form.categoria}}</span></p>
+                <p class="category">Categoria: <span v-for="cat in producto.categoria" v-bind:key="cat" >{{cat}}</span></p>
                 <p class="description">Descripcion: <span>{{form.descripcion}}</span></p>
 
                 <section class="action">
@@ -70,19 +70,22 @@ export default {
       }
     };
   },
-  created: function(){
-    if(Object.keys(this.$route.params).length != 0){
-      this.buscar = this.$route.params.producto
-      this.go();
-    }
-  },
+
+created: function(){
+  var self = this
+    self.is_auth  = localStorage.getItem('isAuth') || false
+    self.username  = localStorage.getItem('current_username')
+    if(self.is_auth == false || this.$route.path != '/administrador/' + this.username)
+      self.$router.push({name: "user_auth"})
+},  
 
   methods: {
     go: function() {
       if(this.$route.path != '/administrador/'+this.buscar) {
-        this.$router.push({name: "administradorProducto", params: {producto: this.buscar}})
+        let username = localStorage.getItem("current_username")
+        this.$router.push({name: "administradorProducto", params: {username: username, producto: this.buscar}})
       }
-      let self = this;
+      let self = this;      
       //axios.get("http://localhost:8000/productos/" +  this.$route.params.producto)
       axios.get("https://tienda-virtual12.herokuapp.com/productos/" + this.$route.params.producto)
         .then(response => {

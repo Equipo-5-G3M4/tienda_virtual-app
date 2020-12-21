@@ -12,7 +12,7 @@
                     <div class="product__description">
                       <p class="product__description--title">{{producto.productoname}} </p>
                       <p class="product__description--price">  Precio:  <span>${{producto.precio}}</span></p>
-                      <p class="product__description--category">Categoria: <span> {{producto.categoria}}</span></p>
+                      <p class="product__description--category">Categoria: <span v-for="cat in producto.categoria" v-bind:key="cat"> {{cat}}</span></p>
                       <p class="product__description--description">Descripcion: <span>{{producto.descripcion}}</span></p>
                     </div>
                 </article>
