@@ -21,9 +21,14 @@
         </ul>
       </nav>
     </header>
+    <aside>
+      <ul>
+        <li v-for="categoria in categorias" v-bind:key="categoria.id"><a v-on:click="vistaCategoria(categoria.nombre)">{{categoria.nombre}}</a></li>
+      </ul>
+    </aside>
 <!-------HEADER--------------------->
 <!-------BODY--------------------->
-      <router-view></router-view>
+    <router-view></router-view>
 <!-------BODY--------------------->
 <!-------FOOTER--------------------->
     <footer>
@@ -80,8 +85,18 @@
 </template>
 
 <script>
+
+import axios from "axios";
+import Categoria from "./components/Categoria";
+
 export default{
   name: 'App',
+  components: {Categoria},
+  data: function (){
+    return {
+      categorias: []
+    }
+  },
   methods : {
     home : function() {
       if(this.$route.path != '/') {
@@ -92,7 +107,17 @@ export default{
       if(this.$route.path != '/administrador') {
         this.$router.push({name: 'administrador'})
       }
+    },
+    vistaCategoria: function (categoria_in) {
+      console.log(this.categorias)
+      this.$router.push({name: 'mostrarCategoria', params: {categoria: categoria_in}})
     }
+  },
+  beforeCreate() {
+    axios.get('http://127.0.0.1:8000/info/categorias/')
+    .then(resultado => {this.categorias = resultado.data})
+    .catch(error => {alert('error en el servidor ' + error)})
+
   }
 }
 </script>
