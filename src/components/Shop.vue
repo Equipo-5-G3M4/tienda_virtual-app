@@ -5,17 +5,16 @@
             <div class="grid">
                 <div v-for="product in products" v-bind:key="product.productoname">
                   <Card :name="product.productoname" :value="product.precio" :category="product.categoria" :image="product.imagen"/>
-                </div> 
+                </div>
              </div>
           </section>
-      </div>        
+      </div>
   </div>
 </template>
 <script>
 
 import axios from 'axios';
 import Card from './card_product.vue';
-
 
 export default {
   name: 'Shop',
@@ -32,10 +31,10 @@ export default {
     //axios.get("http://127.0.0.1:8000/productos")
     axios.get("https://tienda-virtual12.herokuapp.com/productos")
         .then(result => {self.products = result.data})
-        .catch(error => {      
+        .catch(error => {
             alert("error en el servidor", error);
       })
-  }   
+  }
 }
 </script>
 
@@ -81,7 +80,7 @@ export default {
   }
   .card-products{
   max-height: 820px;
-  overflow: scroll; 
+  overflow: scroll;
   }
   .card-products::-webkit-scrollbar {
     display: none;

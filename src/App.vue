@@ -18,10 +18,15 @@
           <li><a>Ofertas</a></li>
           <li><a>Quienes somos</a></li>
           <li><a v-on:click="admin">Administrador</a></li>
-          <button  v-on:click="logOut" v-if="is_auth" >Cerrar Sesión</button>          
+          <button  v-on:click="logOut" v-if="is_auth" >Cerrar Sesión</button>
         </ul>
       </nav>
     </header>
+    <aside>
+      <ul id="verticalbar">
+        <li v-for="categoria in categorias" v-bind:key="categoria.id"><a v-on:click="vistaCategoria(categoria.nombre)">{{categoria.nombre}}</a></li>
+      </ul>
+    </aside>
 <!-------HEADER--------------------->
 <!-------BODY--------------------->
       <router-view v-on:log-in="logIn" >  </router-view>
@@ -81,15 +86,19 @@
 </template>
 
 <script>
-export default{
-  name: 'App', 
-  
-  data: function(){
-      return{ 
-        is_auth: localStorage.getItem('isAuth') || false             
-      }    
-  },
 
+import axios from "axios";
+import Categoria from "./components/Categoria";
+
+export default{
+  name: 'App',
+  components: {Categoria},
+  data: function(){
+      return{
+        categorias: [],
+        is_auth: localStorage.getItem('isAuth') || false
+      }
+  },
   methods : {
     home : function() {
       if(this.$route.path != '/') {
@@ -102,12 +111,10 @@ export default{
       let is_auth  = localStorage.getItem('isAuth')
       if(this.$route.path != '/user/auth' && self.is_auth == false) {
         self.$router.push({name: 'user_auth'})
-      }
-      else if (is_auth == 'true'){
+      }else if (is_auth == 'true'){
         self.$router.push({name: "administrador", params: {username: username}})
       }
     },
-
     updateAuth: function(){
       var self = this
       self.is_auth  = localStorage.getItem('isAuth') || false
@@ -116,7 +123,7 @@ export default{
       else{
         let username = localStorage.getItem("current_username")
         self.$router.push({name: "administrador", params: {username: username}})
-      }  
+      }
     },
     logIn: function(username){
       localStorage.setItem('current_username', username)
@@ -135,11 +142,19 @@ export default{
       }
     },
     created: function(){
-    this.$router.push({name: "root"})
-    this.updateAuth()
-  }
-
-    
+      this.$router.push({name: "root"})
+      this.updateAuth()
+    },
+    vistaCategoria: function (categoria_in) {
+      if(this.$route.path != '/mostrar/' + categoria_in) {
+        this.$router.push({name: 'mostrarCategoria', params: {categoria: categoria_in}})
+      }
+    }
+  },
+  beforeCreate() {
+    axios.get('http://127.0.0.1:8000/info/categorias/')
+    .then(resultado => {this.categorias = resultado.data})
+    .catch(error => {alert('error en el servidor ' + error)})
   }
 }
 </script>
@@ -326,18 +341,48 @@ h2{
   }
 }
 button{
-        
-        height: 40px;
-        color: #E5E7E9;
-        background: #000000;
-        border: 1px solid #E5E7E9;
-        border-radius: 5px;
-        padding: 10px 25px;
-        margin: 5px 0;
-    }
-    button:hover{
-        color: #000000;
-        background: rgb(255, 255, 255);
-        border: 1px solid #283747;
-    }
+  height: 40px;
+  color: #E5E7E9;
+  background: #000000;
+  border: 1px solid #E5E7E9;
+  border-radius: 5px;
+  padding: 10px 25px;
+  margin: 5px 0;
+}
+button:hover{
+  color: #000000;
+  background: rgb(255, 255, 255);
+  border: 1px solid #283747;
+}
+#app aside {
+  float: left;
+  width: 15%;
+  height: 100vh;
+}
+#app aside ul {
+  display: flex;
+  flex-flow: column;
+
+  list-style: none;
+  margin: 0;
+  padding: 0 20px;
+  background: #3F3F3F;
+}
+#app aside a{
+  text-decoration: none;
+  display: block;
+  padding: 0.3em;
+  margin: 0.5em;
+  color: white;
+
+  font-size: 20px;
+  font-weight: 600;
+}
+#app aside a:hover {
+  border-bottom: 5px #00F87C solid;
+  color: #00F87C;
+}
+router-view {
+  float: left;
+}
 </style>
