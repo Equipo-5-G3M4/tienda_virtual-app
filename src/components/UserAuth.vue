@@ -38,7 +38,8 @@ export default {
     methods: {
         processAuthUser: function(){
             var self = this
-            axios.post("http://127.0.0.1:8000/user/auth/", self.user_in,  {headers: {}})
+            //axios.post("http://127.0.0.1:8000/user/auth/", self.user_in,  {headers: {}})
+            axios.post("https://tienda-virtual12.herokuapp.com/user/auth/", self.user_in,  {headers: {}})
                 .then((result) => {
                     alert("Autenticación Exitosa");
                     self.$emit('log-in', self.user_in.username)
@@ -116,4 +117,19 @@ export default {
         background: rgb(255, 255, 255);
         border: 1px solid #283747;
     }
+@media screen and (max-width: 1100px){
+    .container_auth_user{
+        width: 30%;
+    }
+}
+@media screen and (max-width: 900px){
+    .container_auth_user{
+        width: 50%;
+    }
+}
+@media screen and (max-width: 700px){
+    .container_auth_user{
+        width: 80%;
+    }
+}
 </style>

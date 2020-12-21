@@ -35,7 +35,7 @@
                 <h2 class="title">{{form.productoname}}</h2>
                 <p class="price">  Precio: $<span>{{form.precio}}</span></p>
                 <p class="price">  Cantidad:  <span>{{form.existencia}}</span></p>
-                <p class="category">Categoria: <span>{{form.categoria}}</span></p>
+                <p class="category">Categoria: <span v-for="cat in producto.categoria" v-bind:key="cat" >{{cat}}</span></p>
                 <p class="description">Descripcion: <span>{{form.descripcion}}</span></p>
 
                 <section class="action">
@@ -86,8 +86,8 @@ created: function(){
         this.$router.push({name: "administradorProducto", params: {username: username, producto: this.buscar}})
       }
       let self = this;      
-      axios.get("http://localhost:8000/productos/" +  this.$route.params.producto)
-      //axios.get("https://tienda-virtual12.herokuapp.com/productos/" + this.$route.params.producto)
+      //axios.get("http://localhost:8000/productos/" +  this.$route.params.producto)
+      axios.get("https://tienda-virtual12.herokuapp.com/productos/" + this.$route.params.producto)
         .then(response => {
           self.producto = response.data
           self.form = response.data
@@ -97,8 +97,8 @@ created: function(){
         });
     },
     save: function(){
-      axios.post("http://localhost:8000/productos", this.form)
-      //axios.post("https://tienda-virtual12.herokuapp.com/productos", this.form)
+      //axios.post("http://localhost:8000/productos", this.form)
+      axios.post("https://tienda-virtual12.herokuapp.com/productos", this.form)
       .then(data =>{
         console.log(data)
           .catch((error) => {
