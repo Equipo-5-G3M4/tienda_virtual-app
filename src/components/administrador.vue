@@ -86,8 +86,8 @@ created: function(){
         this.$router.push({name: "administradorProducto", params: {username: username, producto: this.buscar}})
       }
       let self = this;      
-      axios.get("http://localhost:8000/productos/" +  this.$route.params.producto)
-      //axios.get("https://tienda-virtual12.herokuapp.com/productos/" + this.$route.params.producto)
+      //axios.get("http://localhost:8000/productos/" +  this.$route.params.producto)
+      axios.get("https://tienda-virtual12.herokuapp.com/productos/" + this.$route.params.producto)
         .then(response => {
           self.producto = response.data
           self.form = response.data
