@@ -35,7 +35,7 @@ const router = new VueRouter({
                 component: UserAuth
             },
             {
-                path: '/mostrar/:categoria',
+                path: '/productos/:categoria',
                 name: 'mostrarCategoria',
                 component: Categoria
             }

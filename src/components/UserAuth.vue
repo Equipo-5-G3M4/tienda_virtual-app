@@ -38,8 +38,8 @@ export default {
     methods: {
         processAuthUser: function(){
             var self = this
-            //axios.post("http://127.0.0.1:8000/user/auth/", self.user_in,  {headers: {}})
-            axios.post("https://tienda-virtual12.herokuapp.com/user/auth/", self.user_in,  {headers: {}})
+            axios.post("http://127.0.0.1:8000/user/auth/", self.user_in,  {headers: {}})
+            //axios.post("https://tienda-virtual12.herokuapp.com/user/auth/", self.user_in,  {headers: {}})
                 .then((result) => {
                     alert("Autenticación Exitosa");
                     self.$emit('log-in', self.user_in.username)
@@ -64,14 +64,13 @@ export default {
 
 <style>
     .auth_user{
-        margin: 0;
+        margin: 40px 0px 40px 0px;
         padding: 0%;
-        height: 100%;
-        width: 100%;
+        
     
         display: flex;
         justify-content: center;
-        align-items: center;
+        align-items: center;        
     }
     .container_auth_user {
         border: 3px solid  #283747;
@@ -84,6 +83,7 @@ export default {
         justify-content: center;
         align-items: center;
         margin: 50px 0px 40px 0px;
+        
     }
     .auth_user h2{
         color: #283747;
